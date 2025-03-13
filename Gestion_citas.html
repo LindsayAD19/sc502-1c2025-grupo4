@@ -122,6 +122,12 @@
         listaCitas.appendChild(li);
         
         document.getElementById("citaForm").reset();
+
+        //Codigo para abrir el pago
+        setTimeout(() => {
+            window.location.href = "pagoCita.html";
+        }, 3000);
+        
     });
     
     function reprogramarCita(id) {
