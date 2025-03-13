@@ -1,67 +1,75 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Citas en Salud Mental</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <style>
-       
-        .navbar .nav-link, .navbar-brand, footer p {
-        color: #FFFFFF !important; 
-        }
-        .btn-primary {
-        background-color: #0d5c21 !important; 
-        border-color: #0d5c21 !important;
-        }
-        .btn-primary:hover {
-        background-color: #0d5c21 !important; 
-        border-color: #0d5c21 !important;
-        }
-    </style>
+    <title>Gestión de Citas</title>
+    <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/128/11142/11142525.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/index-style.css">
 </head>
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
         <div class="container">
-            <a class="navbar-brand" href="#">HealthyMind</a>
+            <a class="navbar-brand" href="index.html">HealthyMind</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Profesionales</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Especialidades</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Contacto</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"><strong>Iniciar Sesión</strong></a></li>
+                    <!-- Panel de Administración (solo visible para admin) -->
+                    <li class="nav-item" id="adminTab" style="display:none;">
+                        <a class="nav-link" href="panelGestionUsuarios.html">Panel de Administración</a>
+                    </li>
+                    <!-- Gestionar Horarios y Precios de Terapeuta (solo visible para admin y terapeuta) -->
+                    <li class="nav-item" id="terapeutaTab" style="display:none;">
+                        <a class="nav-link" href="configurarTerapeuta.html">Configuración Terapeuta</a>
+                    </li>
+                    <!-- Perfil de Paciente (solo visible para usuarios registrados) -->
+                    <li class="nav-item" id="pacienteTab" style="display:none;">
+                        <a class="nav-link" href="perfilUsuario.html">Mi Perfil</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="Contacto.html">Contacto</a></li>
+                    <li class="nav-item"><a class="nav-link" href="recursos.html">Recursos</a></li>
+                    <li id="BtnSignIn" class="nav-item"><a class="nav-link" href="#"><strong>Iniciar Sesión</strong></a>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <header class="text-center bg-light py-5">
-        <div class="container">
-            <h1>Cuida tu mente como cuidas tu cuerpo, descansa, respira y rodéate de aquello que te haga bien 🍃</h1>
-            <p class="lead">Agenda tu cita con terapeutas profesionales de manera rápida y sencilla en HealthyMind </p>
-        </div>
-    </header>
-    
-    <section id="citas" class="py-5">
-        <div class="container">
-            <h2 class="text-center mb-4">Gestiona tus Citas</h2>
-            <div class="row">
-                <div class="card p-4 shadow-sm">
-                    <p> HealthyMind te brinda un acceso mejorado para que agendes tu cita con el profesional que se adapte mejor a tu necesidad 🌿</p>
-                    
-                        <li class="list-group-item">✔ Te brinda la posibilidad de agendar, cancelar o reprogramar tus citas</li>
-                        <li class="list-group-item">✔ Cuenta con un sistema de notificaciones y recordatorios sobre próximas citas</li>
-                        <li class="list-group-item">✔ Ofrece opciónes de sesiones gratuitas o de bajo costo</li>
-    
-                </div>
+    <main>
+        <header class="text-center py-5">
+            <div class="container">
+                <h1>Cuida tu mente como cuidas tu cuerpo, descansa, respira y rodéate de aquello que te haga bien 🍃
+                </h1>
+                <p class="lead">Agenda tu cita con terapeutas profesionales de manera rápida y sencilla en HealthyMind
+                </p>
             </div>
+        </header>
+
+        <section id="citas" class="py-2">
+            <div class="container">
+                <h2 class="text-center mb-4">Gestiona tus Citas</h2>
+                <div class="row">
+                    <div class="card p-4 shadow-sm">
+                        <p> HealthyMind te brinda un acceso mejorado para que agendes tu cita con el profesional que se
+                            adapte mejor a tu necesidad 🌿</p>
+
+                        <li class="list-group-item">✔ Te brinda la posibilidad de agendar, cancelar o reprogramar tus
+                            citas
+                        </li>
+                        <li class="list-group-item">✔ Cuenta con un sistema de notificaciones y recordatorios sobre
+                            próximas
+                            citas</li>
+                        <li class="list-group-item">✔ Ofrece opciónes de sesiones gratuitas o de bajo costo</li>
+                    </div>
+                </div>
         </section>
 
+        <section id="citas" class="mt-4 mx-4">
             <div class="card p-4 shadow-sm">
                 <h4>Agendar Cita</h4>
                 <form id="citaForm">
@@ -84,82 +92,31 @@
                             <option value="Lic. Naomi Gutiérrez ">Lic. Naomi Gutiérrez </option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">Agendar</button>
+                    <button type="submit" class="btn btn-success">Agendar</button>
                 </form>
             </div>
         </section>
-        
 
-<section class="card mt-4 p-4 shadow-sm">
-    <h4>Citas Programadas</h4>
-    <ul class="list-group" id="listaCitas"></ul>
-</section>
+        <section class="card mt-4 mx-4 p-4 px-4 shadow-sm">
+            <h4>Citas Programadas</h4>
+            <ul class="list-group" id="listaCitas"></ul>
+        </section>
+    </main>
 
-<script>
-    document.getElementById("citaForm").addEventListener("submit", function(event) {
-        event.preventDefault();
-        
-        const fecha = document.getElementById("fecha").value;
-        const hora = document.getElementById("hora").value;
-        const terapeuta = document.getElementById("terapeuta").value;
-        const idCita = Date.now();
-        
-        const listaCitas = document.getElementById("listaCitas");
-        
-        const li = document.createElement("li");
-        li.classList.add("list-group-item", "d-flex", "justify-content-between", "align-items-center");
-        li.dataset.id = idCita;
-        li.innerHTML = `
-            <div>
-                <strong>${terapeuta}</strong> - ${fecha} a las ${hora}
-            </div>
-            <div>
-                <button class="btn btn-warning btn-sm me-2" onclick="reprogramarCita(${idCita})">Reprogramar</button>
-                <button class="btn btn-danger btn-sm" onclick="cancelarCita(${idCita})">Cancelar</button>
-            </div>
-        `;
-        
-        listaCitas.appendChild(li);
-        
-        document.getElementById("citaForm").reset();
+    <footer class="text-center bg-dark py-4 mt-4">
+        <p>&copy; 2025 HealthyMind - Todos los derechos reservados</p>
+    </footer>
 
-        //Codigo para abrir el pago
-        setTimeout(() => {
-            window.location.href = "pagoCita.html";
-        }, 3000);
-        
-    });
-    
-    function reprogramarCita(id) {
-        const nuevaFecha = prompt("Ingrese la nueva fecha (YYYY-MM-DD):");
-        const nuevaHora = prompt("Ingrese la nueva hora (HH:MM):");
-        
-        if (nuevaFecha && nuevaHora) {
-            const cita = document.querySelector(`li[data-id='${id}']`);
-            const info = cita.querySelector("div");
-            info.innerHTML = `<strong>${info.querySelector("strong").innerText}</strong> - ${nuevaFecha} a las ${nuevaHora}`;
-        }
-    }
-    
-    function cancelarCita(id) {
-        if (confirm("¿Estás seguro de que deseas cancelar esta cita?")) {
-            document.querySelector(`li[data-id='${id}']`).remove();
-        }
-    }
-</script>
-</section>
-<style>
-    .navbar, footer {
-        background-color: #478668 !important; 
-    }
-    .navbar .nav-link, .navbar-brand, footer p {
-        color: #FFFFFF !important; 
-    }
-</style>
+    <!-- Contenedor donde se cargará el modal de inicio de sesión -->
+    <div id="signInModal-container"></div>
 
-<footer class="text-white text-center py-3">
-    <p>&copy; 2025 HealthyMind | Todos los derechos reservados</p>
-</footer>
-</section>
+    <!-- Contenedor donde se cargará el modal de registro -->
+    <div id="signUpModal-container"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/signIn.js"></script>
+    <script src="js/gestionCitas.js"></script>
+
 </body>
+
 </html>
