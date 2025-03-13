@@ -24,10 +24,18 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Profesionales</a></li>
+                        <li class="nav-item"><a class="nav-link" href="Profesionales.html">Profesionales</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Especialidades</a></li>
                         <li class="nav-item"><a class="nav-link" href="Contacto.html">Contacto</a></li>
                         <li class="nav-item"><a class="nav-link" href="recursos.html">Recursos</a></li>
+                        <!-- Panel de Administración (solo visible para admin) -->
+                        <li class="nav-item" id="adminTab" style="display:none;">
+                            <a class="nav-link" href="panelGestionUsuarios.html">Panel de Administración</a>
+                        </li>
+                        <!-- Gestionar Horarios y Precios de Terapeuta (solo visible para admin y terapeuta) -->
+                        <li class="nav-item" id="terapeutaTab" style="display:none;">
+                            <a class="nav-link" href="configurarTerapeuta.html">Configuración Terapeuta</a>
+                        </li>
                         <li id="BtnSignIn" class="nav-item"><a class="nav-link" href="#"><strong>Iniciar Sesión</strong></a></li>
                     </ul>
                 </div>
@@ -35,106 +43,69 @@
         </nav>
         
         <main>
-        <div class="hero">
-            <h1>Encuentra al profesional de salud mental adecuado para ti</h1>
-        </div>
-        
-        <div class="container mt-5">
-            <ul class="nav nav-tabs" id="mainTabs">
-                <li class="nav-item">
-                    <a class="nav-link active" data-bs-toggle="tab" href="#auth">Encuentra un Profesional</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#citas">Agenda tu Cita</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#sesiones">Consulta en Línea</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#pagos">Califica tu Experiencia</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#recordatorio">Recordatorio de Citas</a>
-                </li>
-            </ul>
+            <div class="hero">
+                <h1>Encuentra al profesional de salud mental adecuado para ti</h1>
+            </div>
             
-            <div class="tab-content mt-3">
-                <div class="tab-pane fade show active" id="auth">
-                    <h3>Encuentra un Profesional</h3>
-                    <p>Busca psicólogos y terapeutas por especialidad, ubicación y disponibilidad.</p>
-                    <button class="btn btn-success">Buscar Profesionales</button>
-                </div>
-                <div class="tab-pane fade" id="citas">
-                    <h3>Agenda tu Cita</h3>
-                    <p>Selecciona el horario que mejor se adapte a tu agenda.</p>
-                    <button class="btn btn-success">Agendar Cita</button>
-                </div>
-                <div class="tab-pane fade" id="sesiones">
-                    <h3>Consulta en Línea</h3>
-                    <p>Accede a sesiones virtuales con tu profesional de salud mental.</p>
-                    <button class="btn btn-info" onclick="location.href='reunion.html'">Iniciar Sesión Virtual</button>
-                </div>
-                <div class="tab-pane fade" id="pagos">
-                    <h3>Califica tu Experiencia</h3>
-                    <p>Comparte tu opinión y ayuda a otros pacientes a encontrar al profesional adecuado.</p>
-                    <button class="btn btn-success">Dejar Reseña</button>
-                </div>
-                <div class="tab-pane fade" id="recordatorio">
-                    <h3>Recordatorio de Citas</h3>
-
-                    <ul class="list-group pd-5">
-                        <li class="list-group-item">
-                          <input class="form-check-input  me-1" type="checkbox" value="" id="firstCheckbox">
-                          <label class="form-check-label3" for="firstCheckbox">Tp. Maria Solorzano el 20 de abril de 9:00 AM-10:00 AM</label>
-                        </li>
-                        <li class="list-group-item ">
-                          <input class="form-check-input me-1" type="checkbox" value="" id="secondCheckbox">
-                          <label class="form-check-label" for="secondCheckbox">Tp. Jose Gomez el 20 de abril de 9:00 AM-10:00 AM</label>
-                        </li>
-                        <li class="list-group-item">
-                          <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
-                          <label class="form-check-label" for="thirdCheckbox">Third checkbox</label>
-                        </li>
-                      </ul>
-                </div>
-                <div class="tab-pane fade" id="recordatorio">
-                    <h3>Recordatorio de Citas</h3>
-
-                    <ul class="list-group pd-5">
-                        <li class="list-group-item">
-                          <input class="form-check-input  me-1" type="checkbox" value="" id="firstCheckbox">
-                          <label class="form-check-label3" for="firstCheckbox">Tp. Maria Solorzano el 20 de abril de 9:00 AM-10:00 AM</label>
-                        </li>
-                        <li class="list-group-item ">
-                          <input class="form-check-input me-1" type="checkbox" value="" id="secondCheckbox">
-                          <label class="form-check-label" for="secondCheckbox">Tp. Jose Gomez el 20 de abril de 9:00 AM-10:00 AM</label>
-                        </li>
-                        <li class="list-group-item">
-                          <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
-                          <label class="form-check-label" for="thirdCheckbox">Third checkbox</label>
-                        </li>
-                      </ul>
-                </div>
-                <div class="tab-pane fade" id="recordatorio">
-                    <h3>Recordatorio de Citas</h3>
-
-                    <ul class="list-group pd-5">
-                        <li class="list-group-item">
-                          <input class="form-check-input  me-1" type="checkbox" value="" id="firstCheckbox">
-                          <label class="form-check-label3" for="firstCheckbox">Tp. Maria Solorzano el 20 de abril de 9:00 AM-10:00 AM</label>
-                        </li>
-                        <li class="list-group-item ">
-                          <input class="form-check-input me-1" type="checkbox" value="" id="secondCheckbox">
-                          <label class="form-check-label" for="secondCheckbox">Tp. Jose Gomez el 20 de abril de 9:00 AM-10:00 AM</label>
-                        </li>
-                        <li class="list-group-item">
-                          <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
-                          <label class="form-check-label" for="thirdCheckbox">Third checkbox</label>
-                        </li>
-                      </ul>
+            <div class="container mt-5">
+                <ul class="nav nav-tabs" id="mainTabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-bs-toggle="tab" href="#auth">Encuentra un Profesional</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#citas">Agenda tu Cita</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#sesiones">Consulta en Línea</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#pagos">Califica tu Experiencia</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#recordatorio">Recordatorio de Citas</a>
+                    </li>
+                </ul>
+                
+                <div class="tab-content mt-3">
+                    <div class="tab-pane fade show active" id="auth">
+                        <h3>Encuentra un Profesional</h3>
+                        <p>Busca psicólogos y terapeutas por especialidad, ubicación y disponibilidad.</p>
+                        <button class="btn btn-success">Buscar Profesionales</button>
+                    </div>
+                    <div class="tab-pane fade" id="citas">
+                        <h3>Agenda tu Cita</h3>
+                        <p>Selecciona el horario que mejor se adapte a tu agenda.</p>
+                        <button class="btn btn-success" onclick="location.href='Gestion_citas.html'">Agendar Cita</button>
+                    </div>
+                    <div class="tab-pane fade" id="sesiones">
+                        <h3>Consulta en Línea</h3>
+                        <p>Accede a sesiones virtuales con tu profesional de salud mental.</p>
+                        <button class="btn btn-info" onclick="location.href='reunion.html'">Iniciar Sesión Virtual</button>
+                    </div>
+                    <div class="tab-pane fade" id="pagos">
+                        <h3>Califica tu Experiencia</h3>
+                        <p>Comparte tu opinión y ayuda a otros pacientes a encontrar al profesional adecuado.</p>
+                        <button class="btn btn-success">Dejar Reseña</button>
+                    </div>
+                    <div class="tab-pane fade" id="recordatorio">
+                        <h3>Recordatorio de Citas</h3>
+                        <ul class="list-group pd-5">
+                            <li class="list-group-item">
+                            <input class="form-check-input  me-1" type="checkbox" value="" id="firstCheckbox">
+                            <label class="form-check-label3" for="firstCheckbox">Tp. Maria Solorzano el 20 de abril de 9:00 AM-10:00 AM</label>
+                            </li>
+                            <li class="list-group-item ">
+                            <input class="form-check-input me-1" type="checkbox" value="" id="secondCheckbox">
+                            <label class="form-check-label" for="secondCheckbox">Tp. Jose Gomez el 20 de abril de 9:00 AM-10:00 AM</label>
+                            </li>
+                            <li class="list-group-item">
+                            <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
+                            <label class="form-check-label" for="thirdCheckbox">Third checkbox</label>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
         </main>
 
         <footer class="text-center bg-dark py-4 mt-4">
