@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthyMind - Panel de Administración</title>
+    <link rel="stylesheet" href="css/style-001.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="#">HealthyMind</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Profesionales</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Especialidades</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Contacto</a></li>
+                    <!-- Panel de Administración (solo visible para admin) -->
+                    <li class="nav-item" id="adminTab" style="display:none;">
+                        <a class="nav-link" href="panelGestionUsuarios.html">Panel de Administración</a>
+                    </li>
+                    <!-- Gestionar Horarios y Precios de Terapeuta (solo visible para admin y terapeuta) -->
+                    <li class="nav-item" id="terapeutaTab" style="display:none;">
+                        <a class="nav-link" href="configurarTerapeuta.html">Configuración Terapeuta</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="#"><strong>Iniciar Sesión</strong></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <ul class="nav nav-tabs" id="mainTabs">
+            <li class="nav-item">
+                <a class="nav-link active" data-bs-toggle="tab" href="#terapeutas">Gestionar Terapeutas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#pacientes">Gestionar Pacientes</a>
+            </li>
+        </ul>
+
+        <div class="tab-content mt-3">
+            <!-- Gestión de Terapeutas -->
+            <div class="tab-pane fade show active" id="terapeutas">
+                <h3>Gestión de Terapeutas</h3>
+                <button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#modalTerapeuta">Agregar
+                    Terapeuta</button>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Cédula</th>
+                            <th>Nombre</th>
+                            <th>Especialidad</th>
+                            <th>Horario</th>
+                            <th>Precio</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaTerapeutas">
+                        <!-- Aquí se insertarán terapeutas dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Gestión de Pacientes -->
+            <div class="tab-pane fade" id="pacientes">
+                <h3>Gestión de Pacientes</h3>
+                <button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#modalPaciente">Agregar
+                    Paciente</button>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Cédula</th>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaPacientes">
+                        <!-- Aquí se insertarán pacientes dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para agregar terapeuta -->
+    <div class="modal fade" id="modalTerapeuta" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Agregar Terapeuta</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" id="cedulaTerapeuta" class="form-control my-2" placeholder="Cédula">
+                    <input type="text" id="nombreTerapeuta" class="form-control my-2" placeholder="Nombre">
+                    <input type="text" id="especialidadTerapeuta" class="form-control my-2" placeholder="Especialidad">
+                    <input type="text" id="horarioTerapeuta" class="form-control my-2" placeholder="Horario Disponible">
+                    <input type="number" id="precioTerapeuta" class="form-control my-2" placeholder="Precio Consulta">
+                    <button class="btn btn-success" onclick="agregarTerapeuta()">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para agregar paciente -->
+    <div class="modal fade" id="modalPaciente" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Agregar Paciente</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" id="cedulaPaciente" class="form-control my-2" placeholder="Cédula">
+                    <input type="text" id="nombrePaciente" class="form-control my-2" placeholder="Nombre">
+                    <input type="email" id="emailPaciente" class="form-control my-2" placeholder="Correo Electrónico">
+                    <button class="btn btn-success" onclick="agregarPaciente()">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center py-4 mt-5">
+        <p>&copy; 2025 HealthyMind - Todos los derechos reservados</p>
+    </footer>
+
+    <script>
+        //Simulamos un usuario
+        const user = {
+            loggedIn: true,   //Si el usuario ha iniciado sesión
+            role: 'admin'     //El rol del usuario (admin, terapeuta, paciente)
+        };
+
+        //Verificar si el usuario está logueado y su rol para mostrar los tabs del navbar
+        if (user.loggedIn && user.role === 'admin') {
+            // Mostrar el tab de administración
+            document.getElementById('adminTab').style.display = 'block';
+        }
+
+        if (user.loggedIn && (user.role === 'terapeuta' || user.role === 'admin')) {
+            document.getElementById('terapeutaTab').style.display = 'block';
+        }
+
+
+
+        function agregarTerapeuta() {
+            let cedula = document.getElementById('cedulaTerapeuta').value;
+            let nombre = document.getElementById('nombreTerapeuta').value;
+            let especialidad = document.getElementById('especialidadTerapeuta').value;
+            let horario = document.getElementById('horarioTerapeuta').value;
+            let precio = document.getElementById('precioTerapeuta').value;
+            if (cedula && nombre && especialidad && horario && precio) {
+                let fila = `<tr id="terapeuta-${cedula}">
+                    <td>${cedula}</td>
+                    <td>${nombre}</td>
+                    <td>${especialidad}</td>
+                    <td>${horario}</td>
+                    <td>${precio} colones</td>
+                    <td>
+                        <button class="btn btn-secondary" onclick="editarTerapeuta('${cedula}')">Editar</button>
+                        <button class="btn btn-danger" onclick="eliminarTerapeuta('${cedula}')">Eliminar</button>
+                    </td>
+                </tr>`;
+                document.getElementById('tablaTerapeutas').innerHTML += fila;
+                document.getElementById('cedulaTerapeuta').value = "";
+                document.getElementById('nombreTerapeuta').value = "";
+                document.getElementById('especialidadTerapeuta').value = "";
+                document.getElementById('horarioTerapeuta').value = "";
+                document.getElementById('precioTerapeuta').value = "";
+            }
+        }
+
+        function agregarPaciente() {
+            let cedula = document.getElementById('cedulaPaciente').value;
+            let nombre = document.getElementById('nombrePaciente').value;
+            let email = document.getElementById('emailPaciente').value;
+            if (cedula && nombre && email) {
+                let fila = `<tr id="paciente-${cedula}">
+                    <td>${cedula}</td>
+                    <td>${nombre}</td>
+                    <td>${email}</td>
+                    <td>
+                        <button class="btn btn-danger" onclick="eliminarPaciente('${cedula}')">Eliminar</button>
+                    </td>
+                </tr>`;
+                document.getElementById('tablaPacientes').innerHTML += fila;
+                document.getElementById('cedulaPaciente').value = "";
+                document.getElementById('nombrePaciente').value = "";
+                document.getElementById('emailPaciente').value = "";
+            }
+        }
+
+        function eliminarPaciente(cedula) {
+            let fila = document.getElementById(`paciente-${cedula}`);
+            fila.remove();
+            alert('Paciente con cédula ' + cedula + ' eliminado');
+        }
+    </script>
+
+</body>
+
+</html>
