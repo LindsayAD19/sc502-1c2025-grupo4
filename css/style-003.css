@@ -1,0 +1,71 @@
+body {
+    background-color: #ffffff;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.card-header {
+    background-color: #eaf1e1;
+    color: #2d6a4f;
+    font-size: 1.2rem;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 15px;
+}
+
+.form-control,
+.form-select {
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.btn-regresar {
+    background-color: #2d6a4f;
+    border-color: #2d6a4f;
+    padding: 12px;
+    border-radius: 8px;
+    width: 20%;
+    color:#FFFFFF;
+}
+
+.btn-primary {
+    background-color: #2d6a4f;
+    border-color: #2d6a4f;
+    padding: 12px;
+    border-radius: 8px;
+    width: 100%;
+}
+
+.btn-primary:hover {
+    background-color: #1b4e34;
+    border-color: #1b4e34;
+}
+
+.btn-disabled {
+    background-color: #ddd;
+    border-color: #ddd;
+}
+
+.pago-form-section {
+    margin-top: 15px;
+}
+
+.card-footer {
+    text-align: center;
+}
+
+.navbar,
+footer {
+    background-color: #478668 !important;
+}
+
+.navbar .nav-link,
+.navbar-brand,
+footer p {
+    color: #FFFFFF !important;
+}
