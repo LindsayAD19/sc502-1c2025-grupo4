@@ -1,5 +1,12 @@
-body {
-    background-color: white;
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
 }
 
 .navbar {
@@ -21,6 +28,14 @@ body {
     background: rgba(0, 0, 0, 0.5);
     padding: 10px;
     border-radius: 10px;
+}
+
+.nav-tabs .nav-link {
+    color: #218d6d;
+}
+
+.nav-tabs .nav-link:hover {
+    color: #1e8163;
 }
 
 footer {

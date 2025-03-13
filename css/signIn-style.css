@@ -1,0 +1,31 @@
+.modal-header {
+    background-color: #1e8163;
+    color: #fff;
+}
+
+button {
+    border: none;
+    background: none;
+}
+
+.form-control {
+    margin-bottom: 10px;
+}
+#btnOlvidoContraseña {
+    padding: 0%;
+    color: #218d6d;
+}
+
+#btnSignUp {
+    padding: 0%;
+    color: #218d6d;
+}
+
+#btnOlvidoContraseña:hover {
+    padding: 0%;
+    color: #1e8163;
+}
+
+#btnSignUp:hover {
+    color: #1e8163;
+}
