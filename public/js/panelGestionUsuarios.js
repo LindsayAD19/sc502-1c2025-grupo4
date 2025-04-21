@@ -6,7 +6,7 @@ const user = {
 
 //Verificar si el usuario está logueado y su rol para mostrar los tabs del navbar
 if (user.loggedIn && user.role === 'admin') {
-    // Mostrar el tab de administración
+    //Mostrar el tab de administración
     document.getElementById('adminTab').style.display = 'block';
 }
 

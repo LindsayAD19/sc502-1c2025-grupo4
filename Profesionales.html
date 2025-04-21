@@ -4,41 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profesionales</title>
-    <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/128/11142/11142525.png">
+    <title>HealthyMind - Profesionales</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/index-style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="public/css/index.css">
+    <link rel="stylesheet" href="public/css/modals.css">
+    <link rel="icon" href="public/img/icon.png">
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
-        <div class="container">
-            <a class="navbar-brand" href="index.html">HealthyMind</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <!-- Panel de Administración (solo visible para admin) -->
-                    <li class="nav-item" id="adminTab" style="display:none;">
-                        <a class="nav-link" href="panelGestionUsuarios.html">Panel de Administración</a>
-                    </li>
-                    <!-- Gestionar Horarios y Precios de Terapeuta (solo visible para admin y terapeuta) -->
-                    <li class="nav-item" id="terapeutaTab" style="display:none;">
-                        <a class="nav-link" href="configurarTerapeuta.html">Configuración Terapeuta</a>
-                    </li>
-                    <!-- Perfil de Paciente (solo visible para usuarios registrados) -->
-                    <li class="nav-item" id="pacienteTab" style="display:none;">
-                        <a class="nav-link" href="perfilUsuario.html">Mi Perfil</a>
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="Contacto.html">Contacto</a></li>
-                    <li class="nav-item"><a class="nav-link" href="recursos.html">Recursos</a></li>
-                    <li id="BtnSignIn" class="nav-item"><a class="nav-link" href="#"><strong>Iniciar Sesión</strong></a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+
+    <div id="navbar"></div>
 
     <main>
         <section id="profesionales">
@@ -60,9 +36,9 @@
                                 <div class="card-body" style="flex: 1;">
                                     <h4 class="card-title">TP. Stefan Camacho</h4>
                                     <p class="card-text">Especialista en terapia cognitivo-conductual.</p>
-                                    <a href="Gestion_citas.html" class="btn btn-success">Agendar Cita</a>
+                                    <a href="gestionCitas.html" class="btn btn-success">Agendar Cita</a>
                                 </div>
-                                <img class="card-img-top" src="imagen/1.jpeg" id="Camacho"
+                                <img class="card-img-top" src="public/img/1.jpeg" id="Camacho"
                                     style="width:150px; height:200px; object-fit: contain;" alt="TP. Stefan Camacho">
                             </div>
                         </div>
@@ -73,9 +49,9 @@
                                 <div class="card-body" style="flex: 1;">
                                     <h4 class="card-title">TF. Camila López</h4>
                                     <p class="card-text">Experta en terapia para la ansiedad y el estrés.</p>
-                                    <a href="Gestion_citas.html" class="btn btn-success">Agendar Cita</a>
+                                    <a href="gestionCitas.html" class="btn btn-success">Agendar Cita</a>
                                 </div>
-                                <img class="card-img-top" src="imagen/2.jpg" id="Lopez"
+                                <img class="card-img-top" src="public/img/2.jpg" id="Lopez"
                                     style="width:150px; height:200px; object-fit: contain;" alt="TF. Camila López">
                             </div>
                         </div>
@@ -86,9 +62,9 @@
                                 <div class="card-body" style="flex: 1;">
                                     <h4 class="card-title">Psicot. Valeria Ramírez</h4>
                                     <p class="card-text">Terapia familiar y pareja.</p>
-                                    <a href="Gestion_citas.html" class="btn btn-success">Agendar Cita</a>
+                                    <a href="gestionCitas.html" class="btn btn-success">Agendar Cita</a>
                                 </div>
-                                <img class="card-img-top" src="imagen/3.webp" id="Ramirez"
+                                <img class="card-img-top" src="public/img/3.webp" id="Ramirez"
                                     style="width:150px; height:200px; object-fit: contain;"
                                     alt="Psicot. Valeria Ramírez">
                             </div>
@@ -101,9 +77,9 @@
                                     <h4 class="card-title">TP. Hunter Morales </h4>
                                     <p class="card-text">Terapia de aceptación para manejar estrés, ansiedad y
                                         depresión.</p>
-                                    <a href="Gestion_citas.html" class="btn btn-success">Agendar Cita</a>
+                                    <a href="gestionCitas.html" class="btn btn-success">Agendar Cita</a>
                                 </div>
-                                <img class="card-img-top" src="imagen/4.jpg" id="Morales"
+                                <img class="card-img-top" src="public/img/4.jpg" id="Morales"
                                     style="width:150px; height:200px; object-fit: contain;" alt="TP. Hunter Morales">
                             </div>
                         </div>
@@ -115,9 +91,9 @@
                                     <h4 class="card-title">Lic. Alejandro Rojas </h4>
                                     <p class="card-text">Psiquiatra especializada en trastornos del estado de ánimo y
                                         esquizofrenia.</p>
-                                    <a href="Gestion_citas.html" class="btn btn-success">Agendar Cita</a>
+                                    <a href="gestionCitas.html" class="btn btn-success">Agendar Cita</a>
                                 </div>
-                                <img class="card-img-top" src="imagen/5.webp" id="Rojas"
+                                <img class="card-img-top" src="public/img/5.webp" id="Rojas"
                                     style="width:150px; height:200px; object-fit: contain;" alt="Lic. Alejandro Rojas">
                             </div>
                         </div>
@@ -129,9 +105,9 @@
                                     <h4 class="card-title">Lic. Naomi Gutiérrez </h4>
                                     <p class="card-text">Psicóloga especializada en autoconocimiento, resiliencia
                                         emocional.</p>
-                                    <a href="Gestion_citas.html" class="btn btn-success">Agendar Cita</a>
+                                    <a href="gestionCitas.html" class="btn btn-success">Agendar Cita</a>
                                 </div>
-                                <img class="card-img-top" src="imagen/6.webp" id="Gutiérrez"
+                                <img class="card-img-top" src="public/img/6.webp" id="Gutiérrez"
                                     style="width:150px; height:200px; object-fit: contain;" alt="Lic. Naomi Gutiérrez ">
                             </div>
                         </div>
@@ -142,18 +118,15 @@
         </section>
     </main>
 
-    <footer class="text-center bg-dark py-4 mt-4">
-        <p>&copy; 2025 HealthyMind - Todos los derechos reservados</p>
-    </footer>
+    <div id="footer"></div>
 
-    <!-- Contenedor donde se cargará el modal de inicio de sesión -->
-    <div id="signInModal-container"></div>
-
-    <!-- Contenedor donde se cargará el modal de registro -->
-    <div id="signUpModal-container"></div>
+    <div id="modals"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/signIn.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="public/js/layout.js"></script>
+    <script src="public/js/modals.js"></script>
+    <script src="public/js/tipoUsuario.js"></script>
 </body>
 
 </html>

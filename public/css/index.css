@@ -14,7 +14,7 @@ main {
 }
 
 .hero {
-    background: url('https://fcefyn.unc.edu.ar/media/images/Guarani_fuera_de_servicio_1.e903d91b.fill-1600x390-c100.png') center/cover no-repeat;
+    background: url('../img/hero.png') center/cover no-repeat;
     height: 400px;
     display: flex;
     align-items: center;
