@@ -1,8 +1,8 @@
 <?php
 $host = "localhost";
 $user = "root";
-$password = "939699pm";
-$database = "healthymind_db";
+$password = "";
+$database = "HEALTHYMIND_DB";
 
 $conn = new mysqli($host, $user, $password, $database);
 
