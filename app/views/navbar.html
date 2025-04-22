@@ -4,23 +4,44 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
-                <!-- Panel de Administración (solo visible para admin) -->
-                <li class="nav-item" id="adminTab" style="display:none;">
+                <!-- Panel de Administración (solo para admin) -->
+                <li class="nav-item" id="adminTab" style="display: none;">
                     <a class="nav-link" href="panelGestionUsuarios.html">Panel de Administración</a>
                 </li>
-                <!-- Gestionar Horarios y Precios de Terapeuta (solo visible para admin y terapeuta) -->
-                <li class="nav-item" id="terapeutaTab" style="display:none;">
+
+                <!-- Configuración Terapeuta (solo para terapeuta) -->
+                <li class="nav-item" id="terapeutaTab" style="display: none;">
                     <a class="nav-link" href="configurarTerapeuta.html">Configuración Terapeuta</a>
                 </li>
-                <!-- Perfil de Paciente (solo visible para usuarios registrados) -->
-                <li class="nav-item" id="pacienteTab" style="display:none;">
-                    <a class="nav-link" href="perfilUsuario.html">Mi Perfil</a>
-                </li>
+
+                <!-- Contacto y Recursos (para todos) -->
                 <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
                 <li class="nav-item"><a class="nav-link" href="recursos.html">Recursos</a></li>
-                <li id="BtnSignIn" class="nav-item"><a class="nav-link" role="button" tabindex="0" id="linkSignIn"><strong>Iniciar Sesión</strong></a></li>
+
+                <!-- Botón Iniciar Sesión (solo si no ha iniciado sesión) -->
+                <li id="BtnSignIn" class="nav-item">
+                    <a class="nav-link" role="button" tabindex="0" id="linkSignIn"><strong>Iniciar
+                            Sesión</strong></a>
+                </li>
+
+                <!-- Usuario logueado (solo imagen + dropdown para perfil/cerrar sesión) -->
+                <li class="nav-item dropdown" id="userDropdown" style="display: none;">
+                    <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button"
+                        data-bs-toggle="dropdown">
+                        <img id="imgPerfil" src="public/img/default.png" alt="Perfil" class="rounded-circle" width="40"
+                            height="40">
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="perfilUsuario.html">Mi Perfil</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#" id="btnSignOut">Cerrar Sesión</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>

@@ -1,31 +1,36 @@
-//Simulamos un usuario
-const user = {
-    loggedIn: true,   //Si el usuario ha iniciado sesión
-    role: 'admin'     //El rol del usuario (admin, terapeuta, paciente)
-};
+document.addEventListener("DOMContentLoaded", () => {
+    //Espera a que exista el elemento del navbar
+    const esperarNavbar = setInterval(() => {
+        const navbarCargado = document.getElementById("BtnSignIn") || document.getElementById("userDropdown");
+        if (navbarCargado) {
+            clearInterval(esperarNavbar);
 
-//Verificar si el usuario está logueado y su rol para mostrar los tabs del navbar
-if (user.loggedIn && user.role === 'admin') {
-    // Mostrar el tab de administración
-    document.getElementById('adminTab').style.display = 'block';
-}
+            //Verificación de sesión
+            $.ajax({
+                url: "app/controllers/getSession.php",
+                method: "GET",
+                dataType: "json",
+                success: function (res) {
+                    if (res.loggedIn) {
+                        $('#BtnSignIn').hide();
+                        $('#userDropdown').show();
+                        $('#imgPerfil').attr("src", "public/img/" + res.foto_perfil);
 
-if (user.loggedIn && (user.role === 'terapeuta' || user.role === 'admin')) {
-    document.getElementById('terapeutaTab').style.display = 'block';
-}
+                        if (res.rol === 'admin') $('#adminTab').show();
+                        if (res.rol === 'terapeuta') $('#terapeutaTab').show();
+                    } else {
+                        $('#BtnSignIn').show();
+                        $('#userDropdown').hide();
+                    }
+                }
+            });
 
-if (user.loggedIn && (user.role === 'paciente' || user.role === 'admin')) {
-    document.getElementById('pacienteTab').style.display = 'block';
-}
-
-
-function guardarConfiguracion() {
-    let horario = document.getElementById('horarioDisponible').value;
-    let precio = document.getElementById('precioConsulta').value;
-
-    if (horario && precio) {
-        alert('Configuración guardada con éxito');
-    } else {
-        alert('Por favor, complete todos los campos.');
-    }
-}
+            //Cerrar sesión
+            $(document).on("click", "#btnSignOut", function () {
+                $.get("app/controllers/SignOut.php", function () {
+                    location.reload();
+                });
+            });
+        }
+    }, 100); //Revisa cada 100ms hasta que el navbar esté cargado
+});
