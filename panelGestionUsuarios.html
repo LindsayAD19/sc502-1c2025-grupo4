@@ -1,3 +1,9 @@
+<!-- 
+    Document   : panelGestionUsuarios.html
+    Created on : 12 mar 2025
+    Author     : Sofía Campos Oviedo
+    SM-010 Gestionar pacientes y terapeutas
+-->
 <!DOCTYPE html>
 <html lang="es">
 
@@ -13,102 +19,131 @@
 </head>
 
 <body>
-
     <div id="navbar"></div>
 
     <main>
         <div class="container mt-5">
             <ul class="nav nav-tabs" id="mainTabs">
                 <li class="nav-item">
-                    <a class="nav-link active" data-bs-toggle="tab" href="#terapeutas">Gestionar Terapeutas</a>
+                    <a class="nav-link active" data-bs-toggle="tab" href="#terapeutas">Terapeutas</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#pacientes">Gestionar Pacientes</a>
+                    <a class="nav-link" data-bs-toggle="tab" href="#pacientes">Pacientes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#admins">Administradores</a>
                 </li>
             </ul>
 
             <div class="tab-content mt-3">
-                <!-- Gestión de Terapeutas -->
+                <!-- Terapeutas -->
                 <div class="tab-pane fade show active" id="terapeutas">
-                    <h3>Gestión de Terapeutas</h3>
-                    <button class="btn btn-success my-3" data-bs-toggle="modal" data-bs-target="#modalTerapeuta">Agregar
-                        Terapeuta</button>
-                    <table class="table">
+                    <h3>Gestionar Terapeutas</h3>
+                    <button class="btn btn-success my-3" data-bs-toggle="modal" data-bs-target="#modalUsuario"
+                        data-tipo="terapeuta">
+                        <i class="bi bi-plus-circle"></i> Agregar Terapeuta
+                    </button>
+                    <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Cédula</th>
                                 <th>Nombre</th>
-                                <th>Especialidad</th>
-                                <th>Horario</th>
-                                <th>Precio</th>
+                                <th>Apellidos</th>
+                                <th>Correo</th>
+                                <th>Teléfono</th>
+                                <th>Dirección</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
-                        <tbody id="tablaTerapeutas">
-                            <!-- Aquí se insertarán terapeutas dinámicamente -->
-                        </tbody>
+                        <tbody id="tabla-terapeuta"></tbody>
                     </table>
                 </div>
 
-                <!-- Gestión de Pacientes -->
+                <!-- Pacientes -->
                 <div class="tab-pane fade" id="pacientes">
-                    <h3>Gestión de Pacientes</h3>
-                    <button class="btn btn-success my-3" data-bs-toggle="modal" data-bs-target="#modalPaciente">Agregar
-                        Paciente</button>
-                    <table class="table">
+                    <h3>Gestionar Pacientes</h3>
+                    <button class="btn btn-success my-3" data-bs-toggle="modal" data-bs-target="#modalUsuario"
+                        data-tipo="paciente">
+                        <i class="bi bi-plus-circle"></i> Agregar Paciente
+                    </button>
+                    <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Cédula</th>
                                 <th>Nombre</th>
-                                <th>Email</th>
+                                <th>Apellidos</th>
+                                <th>Correo</th>
+                                <th>Teléfono</th>
+                                <th>Dirección</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
-                        <tbody id="tablaPacientes">
-                            <!-- Aquí se insertarán pacientes dinámicamente -->
-                        </tbody>
+                        <tbody id="tabla-paciente"></tbody>
+                    </table>
+                </div>
+
+                <!-- Administradores -->
+                <div class="tab-pane fade" id="admins">
+                    <h3>Gestionar Administradores</h3>
+                    <button class="btn btn-success my-3" data-bs-toggle="modal" data-bs-target="#modalUsuario"
+                        data-tipo="admin">
+                        <i class="bi bi-plus-circle"></i> Agregar Admin
+                    </button>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Apellidos</th>
+                                <th>Correo</th>
+                                <th>Teléfono</th>
+                                <th>Dirección</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-admin"></tbody>
                     </table>
                 </div>
             </div>
         </div>
 
-        <!-- Modal para agregar terapeuta -->
-        <div class="modal fade" id="modalTerapeuta" tabindex="-1">
+        <!-- Modal para Agregar/Editar Usuario -->
+        <div class="modal fade" id="modalUsuario" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Agregar Terapeuta</h5>
+                        <h5 class="modal-title" id="modalUsuarioTitle"></h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
-                        <input type="text" id="cedulaTerapeuta" class="form-control my-2" placeholder="Cédula">
-                        <input type="text" id="nombreTerapeuta" class="form-control my-2" placeholder="Nombre">
-                        <input type="text" id="especialidadTerapeuta" class="form-control my-2"
-                            placeholder="Especialidad">
-                        <input type="text" id="horarioTerapeuta" class="form-control my-2"
-                            placeholder="Horario Disponible">
-                        <input type="number" id="precioTerapeuta" class="form-control my-2"
-                            placeholder="Precio Consulta">
-                        <button class="btn btn-success" onclick="agregarTerapeuta()">Guardar</button>
+                        <input type="hidden" id="usuarioId">
+                        <input type="hidden" id="usuarioTipo">
+                        <div class="mb-3">
+                            <label class="form-label">Nombre</label>
+                            <input type="text" id="usuarioNombre" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Apellidos</label>
+                            <input type="text" id="usuarioApellidos" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Correo</label>
+                            <input type="email" id="usuarioCorreo" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Teléfono</label>
+                            <input type="text" id="usuarioTelefono" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Dirección</label>
+                            <input type="text" id="usuarioDireccion" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Contraseña</label>
+                            <input type="password" id="usuarioContrasena" class="form-control"
+                                placeholder="Nueva contraseña">
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal para agregar paciente -->
-        <div class="modal fade" id="modalPaciente" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Agregar Paciente</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                    </div>
-                    <div class="modal-body">
-                        <input type="text" id="cedulaPaciente" class="form-control my-2" placeholder="Cédula">
-                        <input type="text" id="nombrePaciente" class="form-control my-2" placeholder="Nombre">
-                        <input type="email" id="emailPaciente" class="form-control my-2"
-                            placeholder="Correo Electrónico">
-                        <button class="btn btn-success" onclick="agregarPaciente()">Guardar</button>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" id="guardarUsuarioBtn"></button>
                     </div>
                 </div>
             </div>
@@ -116,14 +151,12 @@
     </main>
 
     <div id="footer"></div>
-
-    <div id="modals"></div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="public/js/panelGestionUsuarios.js"></script>
     <script src="public/js/layout.js"></script>
     <script src="public/js/modals.js"></script>
-    <script src="public/js/panelGestionUsuarios.js"></script>
+    <script src="public/js/tipoUsuario.js"></script>
 </body>
 
 </html>

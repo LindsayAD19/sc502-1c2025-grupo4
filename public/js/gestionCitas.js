@@ -1,50 +1,114 @@
-document.getElementById("citaForm").addEventListener("submit", function (event) {
-    event.preventDefault();
+$(document).ready(function () {
+    const params = new URLSearchParams(window.location.search);
+    const idTerapeuta = params.get("id");
 
-    const fecha = document.getElementById("fecha").value;
-    const hora = document.getElementById("hora").value;
-    const terapeuta = document.getElementById("terapeuta").value;
-    const idCita = Date.now();
+    if (idTerapeuta) {
+        //Agrega un terapeuta temporalmente mientras se carga por AJAX
+        $('#terapeuta').html(`
+            <option value="${idTerapeuta}" selected>Terapeuta #${idTerapeuta}</option>
+        `);
+    } else {
+        $('#terapeuta').html(`<option disabled selected>Error al cargar terapeuta</option>`);
+    }
 
-    const listaCitas = document.getElementById("listaCitas");
+    //Carga los terapeutas desde PHP (esto reemplazará el anterior select si es exitoso)
+    $.ajax({
+        url: 'app/controllers/gestionCitas.php',
+        type: 'GET',
+        success: function (response) {
+            const select = $('#terapeuta');
+            select.empty();
+            select.append('<option disabled selected>Seleccione un terapeuta</option>');
+            response.forEach(function (t) {
+                const selected = t.id == idTerapeuta ? 'selected' : '';
+                select.append(`<option value="${t.id}" ${selected}>${t.nombre}</option>`);
+            });
+        },
+        error: function () {
+            console.error('Error al cargar los terapeutas');
+        }
+    });
 
-    const li = document.createElement("li");
-    li.classList.add("list-group-item", "d-flex", "justify-content-between", "align-items-center");
-    li.dataset.id = idCita;
-    li.innerHTML = `
-                <div>
-                    <strong>${terapeuta}</strong> - ${fecha} a las ${hora}
-                </div>
-                <div>
-                    <button class="btn btn-warning btn-sm me-2" onclick="reprogramarCita(${idCita})">Reprogramar</button>
-                    <button class="btn btn-danger btn-sm" onclick="cancelarCita(${idCita})">Cancelar</button>
-                </div>
-            `;
+    //Carga las citas programadas
+    $.ajax({
+        url: 'app/controllers/gestionCitas.php?action=listCitas',
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            const lista = $('#listaCitas');
+            lista.empty();
+            if (Array.isArray(data) && data.length > 0) {
+                data.forEach(cita => {
+                    lista.append(`<li class="list-group-item">
+                        <strong>${cita.fecha}</strong> a las <strong>${cita.hora}</strong> con <strong>${cita.terapeuta}</strong>
+                    </li>`);
+                });
+            } else {
+                lista.append('<li class="list-group-item">No tienes citas programadas.</li>');
+            }
+        },
+        error: function () {
+            $('#listaCitas').append('<li class="list-group-item">Error al cargar citas programadas.</li>');
+        }
+    });
 
-    listaCitas.appendChild(li);
+    //Captura y redirecciona al agendar
+    $('#citaForm').submit(function (e) {
+        e.preventDefault();
 
-    document.getElementById("citaForm").reset();
+        const datosCita = {
+            fecha: $('#fecha').val(),
+            hora: $('#hora').val(),
+            idTerapeuta: $('#terapeuta').val(),
+            nombreTerapeuta: $('#terapeuta option:selected').text(),
+            precio: $('#precio').val()
+        };
 
-    //Codigo para abrir el pago
-    setTimeout(() => {
-        window.location.href = "pagoCita.html";
-    }, 3000);
+        localStorage.setItem('datosCita', JSON.stringify(datosCita));
 
+        setTimeout(() => {
+            window.location.href = "pagoCita.html";
+        }, 2000);
+    });
+
+    if (idTerapeuta) {
+        $('#terapeuta').val(idTerapeuta);
+        obtenerPrecio(idTerapeuta);
+    }
+
+    $('#terapeuta').on('change', function () {
+        const idSeleccionado = $(this).val();
+        if (idSeleccionado) {
+            obtenerPrecio(idSeleccionado);
+        }
+    });
+
+    function obtenerPrecio(id) {
+        $.ajax({
+            url: 'app/controllers/gestionCitas.php',
+            method: 'GET',
+            data: { id: id },
+            success: function (response) {
+                if (typeof response === "string") {
+                    try {
+                        response = JSON.parse(response);
+                    } catch (e) {
+                        console.error("Error al analizar la respuesta JSON", e);
+                        response = {};
+                    }
+                }
+                if (response && response.precio && response.precio !== '') {
+                    console.log("Precio asignado:", response.precio);
+                    $('#precio').val(response.precio);
+                } else {
+                    console.error('Precio no encontrado o no disponible');
+                    $('#precio').val('');
+                }
+            },
+            error: function () {
+                console.error('Error al obtener el precio del terapeuta');
+                $('#precio').val('');
+            }
+        });
+    }
 });
-
-function reprogramarCita(id) {
-    const nuevaFecha = prompt("Ingrese la nueva fecha (YYYY-MM-DD):");
-    const nuevaHora = prompt("Ingrese la nueva hora (HH:MM):");
-
-    if (nuevaFecha && nuevaHora) {
-        const cita = document.querySelector(`li[data-id='${id}']`);
-        const info = cita.querySelector("div");
-        info.innerHTML = `<strong>${info.querySelector("strong").innerText}</strong> - ${nuevaFecha} a las ${nuevaHora}`;
-    }
-}
-
-function cancelarCita(id) {
-    if (confirm("¿Estás seguro de que deseas cancelar esta cita?")) {
-        document.querySelector(`li[data-id='${id}']`).remove();
-    }
-}

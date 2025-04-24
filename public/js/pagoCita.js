@@ -1,42 +1,50 @@
-// Obtener datos de la cita (simulación, en la realidad vendrían de otra página o backend)
-const cita = {
-    terapeuta: "TP. Camacho",
-    fecha: "2024-08-10",
-    hora: "14:00",
-    costo: 18000 // Cambiar por el precio real si aplica
-};
-
-// Mostrar datos en la página
-document.getElementById("terapeuta").textContent = cita.terapeuta;
-document.getElementById("fecha").textContent = cita.fecha;
-document.getElementById("hora").textContent = cita.hora;
-document.getElementById("costo").textContent = cita.costo === 0 ? "Gratis" : `₡${cita.costo}`;
-
-// Ocultar pago si es gratis
-if (cita.costo === 0) {
-    document.getElementById("pagoSection").style.display = "none";
-    document.getElementById("confirmarBtn").textContent = "Confirmar Cita";
-}
-
-// Función para alternar entre campos de pago
 function togglePaymentFields() {
-    const metodoPago = document.getElementById("metodoPago").value;
-    if (metodoPago === "tarjeta") {
-        document.getElementById("tarjetaSection").style.display = "block";
-        document.getElementById("nombreTitularSection").style.display = "block";
-        document.getElementById("fechaSection").style.display = "block";
-        document.getElementById("cvvSection").style.display = "block";
-        document.getElementById("paypalSection").style.display = "none";
-    } else {
-        document.getElementById("tarjetaSection").style.display = "none";
-        document.getElementById("nombreTitularSection").style.display = "none";
-        document.getElementById("fechaSection").style.display = "none";
-        document.getElementById("cvvSection").style.display = "none";
-        document.getElementById("paypalSection").style.display = "block";
+    //Solo usamos tarjeta
+  }
+  
+  function confirmarPago() {
+    //Llama datos de la cita
+    const cita = JSON.parse(localStorage.getItem('datosCita'));
+    if (!cita) {
+      alert('No hay datos de cita');
+      return;
     }
-}
-
-// Función de confirmación de pago
-function confirmarPago() {
-    alert("Pago Confirmado.");
-}
+  
+    //Obtiene el método de pago
+    const metodo = $('#metodoPago').val();
+  
+    //Envia el POST
+    $.post('app/controllers/registroCitaPago.php', {
+      fecha: cita.fecha,
+      hora: cita.hora,
+      idTerapeuta: cita.idTerapeuta,
+      precio: cita.precio,
+      metodo: metodo
+    }, function(res) {
+      console.log('Respuesta pago:', res);
+      if (res.success) {
+        localStorage.removeItem('datosCita');
+        window.location.href = `facturaCita.html?idPago=${res.idPago}`;
+      } else {
+        alert('Error: ' + res.mensaje);
+      }
+    }, 'json')
+    .fail((xhr, status, err) => {
+      console.error('Error comunicación:', status, err, xhr.responseText);
+      alert('Error de comunicación al guardar');
+    });
+  }
+  
+  //Al cargar la página, rellena el resumen
+  $(function() {
+    const cita = JSON.parse(localStorage.getItem('datosCita')) || {};
+    $('#terapeuta').text(cita.nombreTerapeuta || '');
+    $('#fecha').text(cita.fecha || '');
+    $('#hora').text(cita.hora || '');
+    $('#costo').text(cita.precio ? `₡${cita.precio}` : 'Gratis');
+    if (cita.precio === 0) {
+      $('#pagoSection').hide();
+      $('#confirmarBtn').text('Confirmar Cita');
+    }
+  });
+  

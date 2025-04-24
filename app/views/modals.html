@@ -1,22 +1,28 @@
+<!-- 
+    Document   : modals.html
+    Created on : 11 mar 2025
+    Author     : Horacio Porras Marin
+    SM-002 Modal de inicio de sesión y registro
+-->
 <!-- SignIn Modal -->
 <div class="modal fade" id="signInModal" tabindex="-1" aria-labelledby="signInModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header bg-light">
                 <h5 class="modal-title" id="signInModalLabel">Iniciar Sesión</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
                 <form>
                     <div class="form-group">
-                        <label for="email">Correo Electrónico</label>
-                        <input type="email" class="form-control" id="email" placeholder="Ingrese su correo electrónico">
+                        <label for="emailR">Correo Electrónico</label>
+                        <input type="email" class="form-control" id="emailR" placeholder="Ingrese su correo electrónico">
                     </div>
                     <div class="form-group">
                         <label for="password">Contraseña</label>
                         <input type="password" class="form-control" id="password" placeholder="Ingrese su contraseña">
                     </div>
-                    <button type="button" class="btn btn-success btn-block mt-3" id="btnLogin">Iniciar Sesión</button>
+                    <button type="button" class="btn btn-success btn-block mt-3" id="btnSignIn">Iniciar Sesión</button>
                     <div class="text-center mt-3">
                         <a id="btnOlvidoContraseña" href="#" class="btn btn-link">¿Olvidó su contraseña?</a>
                     </div>
@@ -33,45 +39,40 @@
 <div class="modal fade" id="signUpModal" tabindex="-1" aria-labelledby="signUpModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header bg-light">
                 <h5 class="modal-title" id="signUpModalLabel">Registrarse</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form id="signUpForm">
-                    <div class="form-group">
-                        <label for="credencialId">Cédula</label>
-                        <input type="text" class="form-control" id="credencialId" placeholder="Ingrese su cédula" pattern="\d*" title="Solo se permiten dígitos">
-                        <label id="errorCredencialId" class="text-danger"></label>
-                    </div>
+                <form id="signUpForm" method="POST">
                     <div class="form-group">
                         <label for="nombre">Nombre</label>
-                        <input type="text" class="form-control" id="nombre" placeholder="Ingrese su nombre">
+                        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese su nombre" required>
                         <label id="errorNombre" class="text-danger"></label>
                     </div>
                     <div class="form-group">
-                        <label for="primerApellido">Primer Apellido</label>
-                        <input type="text" class="form-control" id="primerApellido" placeholder="Ingrese su primer apellido">
-                        <label id="errorPrimerApellido" class="text-danger"></label>
+                        <label for="apellidos">Apellidos</label>
+                        <input type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Ingrese sus apellidos" required>
+                        <label id="errorApellidos" class="text-danger"></label>
                     </div>
                     <div class="form-group">
-                        <label for="segundoApellido">Segundo Apellido</label>
-                        <input type="text" class="form-control" id="segundoApellido" placeholder="Ingrese su segundo apellido">
-                        <label id="errorSegundoApellido" class="text-danger"></label>
-                    </div>
-                    <div class="form-group">
-                        <label for="fechaNacimiento">Fecha de Nacimiento</label>
-                        <input type="date" class="form-control" id="fechaNacimiento">
-                        <label id="errorFechaNacimiento" class="text-danger"></label>
-                    </div>
-                    <div class="form-group">
-                        <label for="txtEmail">Correo Electrónico</label>
-                        <input type="email" class="form-control" id="txtEmail" placeholder="Ingrese su correo electrónico">
+                        <label for="email">Correo Electrónico</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Ingrese su correo electrónico" required>
                         <label id="errorEmail" class="text-danger"></label>
                     </div>
                     <div class="form-group">
-                        <label for="contraseña">Contraseña</label>
-                        <input type="password" class="form-control" id="contraseña" placeholder="Ingrese su contraseña">
+                        <label for="telefono">Número de Teléfono</label>
+                        <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Ingrese su número de teléfono">
+                        <label id="errorTelefono" class="text-danger"></label>
+                    </div>
+                    <div class="form-group">
+                        <label for="direccion">Dirección</label>
+                        <textarea class="form-control" id="direccion" name="direccion" placeholder="Ingrese una dirección" rows="3"></textarea>
+                        <label id="errorDireccion" class="text-danger"></label>
+                    </div>
+                    <div class="form-group">
+                        <label for="contrasena">Contraseña</label>
+                        <input type="password" class="form-control" id="contrasena" name="contrasena" placeholder="Ingrese su contraseña" required>
                         <label id="errorContrasena" class="text-danger"></label>
                         <ul>
                             <li id="requisitoMayuscula">Una letra mayúscula</li>
@@ -81,49 +82,22 @@
                         </ul>
                     </div>
                     <div class="form-group">
-                        <label for="confirmarContraseña">Confirmar contraseña</label>
-                        <input type="password" class="form-control" id="confirmarContraseña" placeholder="Ingrese nuevamente su contraseña">
+                        <label for="confirmarContrasena">Confirmar contraseña</label>
+                        <input type="password" class="form-control" id="confirmarContrasena" placeholder="Ingrese nuevamente su contraseña" required>
                         <label id="errorConfirmarContrasena" class="text-danger"></label>
                     </div>
                     <div class="form-group">
-                        <label for="numeroTelefono">Número de Teléfono</label>
-                        <input type="text" class="form-control" id="numeroTelefono" placeholder="Ingrese su número de teléfono">
-                        <label id="errorNumeroTelefono" class="text-danger"></label>
+                        <label class="form-label d-block">Tipo de Usuario</label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="tipo" id="tipoPaciente" value="paciente" required>
+                            <label class="form-check-label" for="tipoPaciente">Paciente</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="tipo" id="tipoTerapeuta" value="terapeuta">
+                            <label class="form-check-label" for="tipoTerapeuta">Terapeuta</label>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="codigoPais">País</label>
-                        <select class="form-control" id="codigoPais">
-                            <option value="">Seleccione un país</option>
-                        </select>
-                        <label id="errorCodigoPais" class="text-danger"></label>
-                    </div>
-                    <div class="form-group">
-                        <label for="codigoProvincia">Provincia</label>
-                        <select class="form-control" id="codigoProvincia">
-                            <option value="">Seleccione una provincia</option>
-                        </select>                        
-                        <label id="errorCodigoProvincia" class="text-danger"></label>
-                    </div>
-                    <div class="form-group">
-                        <label for="codigoCanton">Cantón</label>
-                        <select class="form-control" id="codigoCanton">
-                            <option value="">Seleccione un cantón</option>
-                        </select>                           
-                        <label id="errorCodigoCanton" class="text-danger"></label>
-                    </div>
-                    <div class="form-group">
-                        <label for="codigoDistrito">Distrito</label>
-                        <select class="form-control" id="codigoDistrito">
-                            <option value="">Seleccione un distrito</option>
-                        </select>
-                        <label id="errorCodigoDistrito" class="text-danger"></label>
-                    </div>
-                    <div class="form-group">
-                        <label for="direccion">Dirección Exacta</label>
-                        <textarea class="form-control" id="direccion" placeholder="Ingrese la dirección exacta" rows="3"></textarea>
-                        <label id="errorDireccion" class="text-danger"></label>
-                    </div>
-                    <button type="submit" class="btn btn-success btn-block">Registrarse</button>
+                    <button type="submit" class="btn btn-success btn-block mt-3">Registrarse</button>
                 </form>
             </div>
         </div>

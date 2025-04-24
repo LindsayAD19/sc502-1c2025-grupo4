@@ -10,12 +10,39 @@ main {
 }
 
 .navbar {
+    position: relative;
+    z-index: 10;
     box-shadow: 6px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.hero {
-    background: url('../img/hero.png') center/cover no-repeat;
+.navbar-avatar {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.hero-container {
+    position: relative;
+    overflow: hidden;
     height: 400px;
+    z-index: 1;
+}
+
+.hero-bg {
+    background: url('../img/hero.png') center/cover no-repeat;
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.5s ease-in-out;
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -23,18 +50,34 @@ main {
     text-align: center;
 }
 
-.hero h1 {
+.hero-container:hover .hero-bg {
+    transform: scale(1.05);
+}
+
+.hero-content h1 {
     font-size: 3rem;
     background: rgba(0, 0, 0, 0.5);
     padding: 10px;
     border-radius: 10px;
 }
 
-.nav-tabs .nav-link {
-    color: #218d6d;
+.container.mt-5 {
+    position: relative;
+    z-index: 5;
 }
 
+.nav-tabs .nav-link {
+    color: #218d6d;
+    text-decoration: none;
+}
+
+
 .nav-tabs .nav-link:hover {
+    color: #1e8163;
+}
+
+.nav-tabs .nav-link:active, 
+.nav-tabs .nav-link:focus {
     color: #1e8163;
 }
 
