@@ -11,39 +11,43 @@
     <link rel="stylesheet" href="public/css/modals.css">
     <link rel="icon" href="public/img/icon.png">
 
-    <link rel="stylesheet" href="public/css/contacto.css"> 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
-    <script src="public/js/contacto.js" defer></script> 
-
+    <link rel="stylesheet" href="public/css/contacto.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="public/js/contacto.js" defer></script>
 </head>
-<body>
-    <div id="navbar"></div>
-    <div class="contact-form-container">
-        <h2>Contacto</h2>
-        <form id="formContacto" action="" method="POST">
-            <input type="text" name="nombre" id="nombre" placeholder="Tu nombre" required>
-            <input type="text" name="apellido" id="apellido" placeholder="Tu apellido" required>
-            <input type="email" name="correo" id="correo" placeholder="Tu correo" required>
-            <select name="sexo" id="sexo" required>
-                <option value="">Selecciona tu sexo</option>
-                <option value="M">Masculino</option>
-                <option value="F">Femenino</option>
-                <option value="O">Otro</option>
-            </select>
-            <textarea name="mensaje" id="mensaje" placeholder="Tu mensaje" rows="4" required></textarea>
-            <button type="submit">Enviar mensaje</button>
-        </form>
-        <div id="resultado"></div>
-    </div>
 
-    <div id="footer"></div>
+<main>
 
-    <div id="modals"></div>
+    <body>
+        <div id="navbar"></div>
+        <div class="contact-form-container mt-5">
+            <h2>Contacto</h2>
+            <form id="formContacto" action="" method="POST">
+                <input type="text" name="nombre" id="nombre" placeholder="Tu nombre" required>
+                <input type="text" name="apellido" id="apellido" placeholder="Tu apellido" required>
+                <input type="email" name="correo" id="correo" placeholder="Tu correo" required>
+                <select name="sexo" id="sexo" required>
+                    <option value="">Selecciona tu sexo</option>
+                    <option value="M">Masculino</option>
+                    <option value="F">Femenino</option>
+                    <option value="O">Otro</option>
+                </select>
+                <textarea name="mensaje" id="mensaje" placeholder="Tu mensaje" rows="4" required></textarea>
+                <button type="submit" class="btn btn-success">Enviar mensaje</button>
+            </form>
+            <div id="resultado"></div>
+        </div>
+</main>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="public/js/layout.js"></script>
-    <script src="public/js/modals.js"></script>
-     <script src="public/js/tipoUsuario.js"></script>
+<div id="footer"></div>
+
+<div id="modals"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="public/js/layout.js"></script>
+<script src="public/js/modals.js"></script>
+<script src="public/js/tipoUsuario.js"></script>
 </body>
+
 </html>

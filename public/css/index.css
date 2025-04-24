@@ -32,9 +32,16 @@ main {
 
 .nav-tabs .nav-link {
     color: #218d6d;
+    text-decoration: none;
 }
 
+
 .nav-tabs .nav-link:hover {
+    color: #1e8163;
+}
+
+.nav-tabs .nav-link:active, 
+.nav-tabs .nav-link:focus {
     color: #1e8163;
 }
 
