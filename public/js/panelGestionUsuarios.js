@@ -1,70 +1,95 @@
-//Simulamos un usuario
-const user = {
-    loggedIn: true,   //Si el usuario ha iniciado sesión
-    role: 'admin'     //El rol del usuario (admin, terapeuta, paciente)
-};
+$(function () {
+    const controller = 'app/controllers/gestionUsuarios.php';
+    let currentAction = 'agregar', currentTipo = '';
 
-//Verificar si el usuario está logueado y su rol para mostrar los tabs del navbar
-if (user.loggedIn && user.role === 'admin') {
-    //Mostrar el tab de administración
-    document.getElementById('adminTab').style.display = 'block';
-}
-
-if (user.loggedIn && (user.role === 'terapeuta' || user.role === 'admin')) {
-    document.getElementById('terapeutaTab').style.display = 'block';
-}
-
-
-
-function agregarTerapeuta() {
-    let cedula = document.getElementById('cedulaTerapeuta').value;
-    let nombre = document.getElementById('nombreTerapeuta').value;
-    let especialidad = document.getElementById('especialidadTerapeuta').value;
-    let horario = document.getElementById('horarioTerapeuta').value;
-    let precio = document.getElementById('precioTerapeuta').value;
-    if (cedula && nombre && especialidad && horario && precio) {
-        let fila = `<tr id="terapeuta-${cedula}">
-                        <td>${cedula}</td>
-                        <td>${nombre}</td>
-                        <td>${especialidad}</td>
-                        <td>${horario}</td>
-                        <td>${precio} colones</td>
-                        <td>
-                            <button class="btn btn-secondary" onclick="editarTerapeuta('${cedula}')">Editar</button>
-                            <button class="btn btn-danger" onclick="eliminarTerapeuta('${cedula}')">Eliminar</button>
-                        </td>
-                    </tr>`;
-        document.getElementById('tablaTerapeutas').innerHTML += fila;
-        document.getElementById('cedulaTerapeuta').value = "";
-        document.getElementById('nombreTerapeuta').value = "";
-        document.getElementById('especialidadTerapeuta').value = "";
-        document.getElementById('horarioTerapeuta').value = "";
-        document.getElementById('precioTerapeuta').value = "";
+    //Cargar tablas
+    function refrescarTablas() {
+        ['terapeuta', 'paciente', 'admin'].forEach(tipo => {
+            $.post(controller, { action: 'listar', tipo: tipo }, null, 'json')
+                .done(users => {
+                    const tbody = $(`#tabla-${tipo}`);
+                    tbody.empty();
+                    if (!Array.isArray(users) || users.length === 0) {
+                        tbody.append(`<tr><td colspan="6" class="text-center text-muted">No hay ${tipo}s</td></tr>`);
+                        return;
+                    }
+                    users.forEach(u => {
+                        tbody.append(`
+                        <tr data-id="${u.id}" data-tipo="${u.tipo}" data-direccion="${u.direccion}">
+                            <td>${u.nombre}</td>
+                            <td>${u.apellidos}</td>
+                            <td>${u.email}</td>
+                            <td>${u.telefono || ''}</td>
+                            <td>${u.direccion || ''}</td>
+                            <td>
+                                <button class="btn btn-sm btn-warning editar">Editar</button>
+                                <button class="btn btn-sm btn-danger eliminar">Eliminar</button>
+                            </td>
+                        </tr>
+                    `);
+                    });
+                }).fail(() => alert(`Error cargando ${tipo}s`));
+        });
     }
-}
 
-function agregarPaciente() {
-    let cedula = document.getElementById('cedulaPaciente').value;
-    let nombre = document.getElementById('nombrePaciente').value;
-    let email = document.getElementById('emailPaciente').value;
-    if (cedula && nombre && email) {
-        let fila = `<tr id="paciente-${cedula}">
-                        <td>${cedula}</td>
-                        <td>${nombre}</td>
-                        <td>${email}</td>
-                        <td>
-                            <button class="btn btn-danger" onclick="eliminarPaciente('${cedula}')">Eliminar</button>
-                        </td>
-                    </tr>`;
-        document.getElementById('tablaPacientes').innerHTML += fila;
-        document.getElementById('cedulaPaciente').value = "";
-        document.getElementById('nombrePaciente').value = "";
-        document.getElementById('emailPaciente').value = "";
-    }
-}
+    refrescarTablas();
 
-function eliminarPaciente(cedula) {
-    let fila = document.getElementById(`paciente-${cedula}`);
-    fila.remove();
-    alert('Paciente con cédula ' + cedula + ' eliminado');
-}
+    //Botón Agregar
+    $('button[data-tipo]').click(function () {
+        currentAction = 'agregar'; currentTipo = $(this).data('tipo');
+        $('#usuarioId, #usuarioNombre, #usuarioApellidos, #usuarioCorreo, #usuarioTelefono, #usuarioDireccion, #usuarioContrasena').val('');
+        $('#usuarioTipo').val(currentTipo);
+        $('#modalUsuarioTitle').text(`Agregar ${capitalize(currentTipo)}`);
+        $('#guardarUsuarioBtn').text('Agregar');
+        $('#modalUsuario').modal('show');
+    });
+
+    //Botón Editar
+    $('body').on('click', '.editar', function () {
+        currentAction = 'editar';
+        const tr = $(this).closest('tr');
+        currentTipo = tr.data('tipo');
+        $('#usuarioId').val(tr.data('id'));
+        $('#usuarioTipo').val(currentTipo);
+        $('#usuarioNombre').val(tr.find('td').eq(0).text());
+        $('#usuarioApellidos').val(tr.find('td').eq(1).text());
+        $('#usuarioCorreo').val(tr.find('td').eq(2).text());
+        $('#usuarioTelefono').val(tr.find('td').eq(3).text());
+        $('#usuarioDireccion').val(tr.data('direccion'));
+        $('#usuarioContrasena').val('');
+        $('#modalUsuarioTitle').text(`Editar ${capitalize(currentTipo)}`);
+        $('#guardarUsuarioBtn').text('Guardar Cambios');
+        $('#modalUsuario').modal('show');
+    });
+
+    //Guardar Agregar/Editar
+    $('#guardarUsuarioBtn').click(function () {
+        const payload = {
+            action: currentAction,
+            tipo: currentTipo,
+            id: $('#usuarioId').val(),
+            nombre: $('#usuarioNombre').val(),
+            apellidos: $('#usuarioApellidos').val(),
+            email: $('#usuarioCorreo').val(),
+            telefono: $('#usuarioTelefono').val(),
+            direccion: $('#usuarioDireccion').val(),
+            contrasena: $('#usuarioContrasena').val()
+        };
+        $.post(controller, payload, (res) => {
+            if (res.success) { $('#modalUsuario').modal('hide'); refrescarTablas(); }
+            else alert(res.mensaje || 'Error');
+        }, 'json').fail(() => alert('Error comunicación'));
+    });
+
+    //Eliminar
+    $('body').on('click', '.eliminar', function () {
+        const tr = $(this).closest('tr');
+        if (!confirm(`¿Eliminar este ${tr.data('tipo')}?`)) return;
+        $.post(controller, { action: 'eliminar', id: tr.data('id') }, (res) => {
+            if (res.success) refrescarTablas();
+            else alert(res.mensaje || 'Error eliminar');
+        }, 'json').fail(() => alert('Error comunicación'));
+    });
+
+    function capitalize(str) { return str.charAt(0).toUpperCase() + str.slice(1); }
+});
