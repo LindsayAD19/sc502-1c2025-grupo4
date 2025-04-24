@@ -3,7 +3,6 @@ $(document).ready(function () {
     const idTerapeuta = params.get("id");
 
     if (idTerapeuta) {
-
         // Agregar terapeuta temporalmente mientras se carga por AJAX
         $('#terapeuta').html(`
             <option value="${idTerapeuta}" selected>Terapeuta #${idTerapeuta}</option>
@@ -30,6 +29,29 @@ $(document).ready(function () {
         }
     });
 
+    // Cargar citas programadas
+    $.ajax({
+        url: 'app/controllers/gestionCitas.php?action=listCitas',
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            const lista = $('#listaCitas');
+            lista.empty();
+            if (Array.isArray(data) && data.length > 0) {
+                data.forEach(cita => {
+                    lista.append(`<li class="list-group-item">
+                        <strong>${cita.fecha}</strong> a las <strong>${cita.hora}</strong> con <strong>${cita.terapeuta}</strong>
+                    </li>`);
+                });
+            } else {
+                lista.append('<li class="list-group-item">No tienes citas programadas.</li>');
+            }
+        },
+        error: function () {
+            $('#listaCitas').append('<li class="list-group-item">Error al cargar citas programadas.</li>');
+        }
+    });
+
     // Captura y redirección al agendar
     $('#citaForm').submit(function (e) {
         e.preventDefault();
@@ -37,7 +59,7 @@ $(document).ready(function () {
         const datosCita = {
             fecha: $('#fecha').val(),
             hora: $('#hora').val(),
-            idTerapeuta: $('#terapeuta').val(),               // nuevo
+            idTerapeuta: $('#terapeuta').val(),
             nombreTerapeuta: $('#terapeuta option:selected').text(),
             precio: $('#precio').val()
         };
@@ -49,16 +71,15 @@ $(document).ready(function () {
         }, 2000);
     });
 
- if (idTerapeuta) {
+    if (idTerapeuta) {
         $('#terapeuta').val(idTerapeuta);
-
         obtenerPrecio(idTerapeuta);
     }
 
     $('#terapeuta').on('change', function () {
         const idSeleccionado = $(this).val();
         if (idSeleccionado) {
-            obtenerPrecio(idSeleccionado); 
+            obtenerPrecio(idSeleccionado);
         }
     });
 
