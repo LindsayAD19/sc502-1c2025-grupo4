@@ -1,3 +1,9 @@
+<!-- 
+    Document   : facturaCita.html
+    Created on : 12 mar 2025
+    Author     : Sofía Campos Oviedo
+    SM-012 Mostrar factura del servicio
+-->
 <!DOCTYPE html>
 <html lang="es">
 
@@ -32,11 +38,11 @@
                     </div>
 
                     <div class="invoice-details mt-4">
-                        <p><strong>Fecha de Emisión:</strong> <span id="fechaEmision">2024-08-10</span></p>
-                        <p><strong>Nombre del Paciente:</strong> <span id="paciente">Juan Pérez</span></p>
-                        <p><strong>Terapeuta:</strong> <span id="terapeutaFactura">TP. Camacho</span></p>
-                        <p><strong>Fecha de la Cita:</strong> <span id="fechaCitaFactura">2024-08-10</span></p>
-                        <p><strong>Hora de la Cita:</strong> <span id="horaCitaFactura">14:00</span></p>
+                        <p><strong>Fecha de Emisión:</strong> <span id="fechaEmision">--</span></p>
+                        <p><strong>Nombre del Paciente:</strong> <span id="paciente">--</span></p>
+                        <p><strong>Terapeuta:</strong> <span id="terapeutaFactura">--</span></p>
+                        <p><strong>Fecha de la Cita:</strong> <span id="fechaCitaFactura">--</span></p>
+                        <p><strong>Hora de la Cita:</strong> <span id="horaCitaFactura">--</span></p>
                     </div>
 
                     <h5 class="mt-4">Detalles del Pago</h5>
@@ -49,19 +55,16 @@
                                 <th>Total</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="detallePago">
                             <tr>
-                                <td>Cita Terapéutica</td>
-                                <td>1</td>
-                                <td>₡18,000</td>
-                                <td>₡18,000</td>
+                                <td colspan="4">Cargando...</td>
                             </tr>
                         </tbody>
                     </table>
 
                     <div class="d-flex justify-content-between">
                         <p><strong>Total:</strong></p>
-                        <p><strong>₡18,000</strong></p>
+                        <p><strong id="totalFactura">₡0.00</strong></p>
                     </div>
 
                     <div class="text-center mt-4">
