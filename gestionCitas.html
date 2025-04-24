@@ -46,31 +46,33 @@
         </section>
 
         <section id="citas" class="mt-4 mx-4">
-            <div class="card p-4 shadow-sm">
-                <h4>Agendar Cita</h4>
-                <form id="citaForm">
+                <form id="citaForm" class="p-4 shadow rounded bg-light">
+                    <h4 class="mb-4 text-center text-success">Agendar Cita</h4>
+
                     <div class="mb-3">
-                        <label class="form-label">Fecha:</label>
+                        <label for="fecha" class="form-label"><strong>Fecha</strong></label>
                         <input type="date" class="form-control" id="fecha" required>
                     </div>
+
                     <div class="mb-3">
-                        <label class="form-label">Hora:</label>
+                        <label for="hora" class="form-label"><strong>Hora</strong></label>
                         <input type="time" class="form-control" id="hora" required>
                     </div>
+
                     <div class="mb-3">
-                        <label class="form-label">Terapeuta:</label>
-                        <select class="form-select" id="terapeuta">
-                            <option value="TP. Camacho">TP. Camacho</option>
-                            <option value="TF. López">TF. López</option>
-                            <option value="Psicot. Ramírez">Psicot. Ramírez</option>
-                            <option value="TP. Hunter Morales">TP. Hunter Morales</option>
-                            <option value="Lic. Alejandro Rojas ">Lic. Alejandro Rojas </option>
-                            <option value="Lic. Naomi Gutiérrez ">Lic. Naomi Gutiérrez </option>
+                        <label for="terapeuta" class="form-label"><strong>Terapeuta</strong></label>
+                        <select class="form-select" id="terapeuta" name="terapeuta" required>
+                            <option disabled selected>Cargando terapeutas...</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-success">Agendar</button>
+
+                    <div class="mb-3">
+                        <label for="precio" class="form-label"><strong>Precio (₡)</strong></label>
+                        <input type="text" class="form-control" id="precio" name="precio" readonly>
+                    </div>
+
+                    <button type="submit" class="btn btn-success w-100">Agendar</button>
                 </form>
-            </div>
         </section>
 
         <section class="card mt-4 mx-4 p-4 px-4 shadow-sm">

@@ -2,7 +2,7 @@
 $host = "localhost";
 $user = "root";
 $password = "";
-$database = "HEALTHYMIND_DB";
+$database = "healthymind_db";
 
 $conn = new mysqli($host, $user, $password, $database);
 

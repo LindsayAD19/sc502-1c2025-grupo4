@@ -1,16 +1,15 @@
-// Obtener datos de la cita (simulación, en la realidad vendrían de otra página o backend)
-const cita = {
-    terapeuta: "TP. Camacho",
-    fecha: "2024-08-10",
-    hora: "14:00",
-    costo: 18000 // Cambiar por el precio real si aplica
-};
+const cita = JSON.parse(localStorage.getItem("datosCita"));
 
-// Mostrar datos en la página
-document.getElementById("terapeuta").textContent = cita.terapeuta;
-document.getElementById("fecha").textContent = cita.fecha;
-document.getElementById("hora").textContent = cita.hora;
-document.getElementById("costo").textContent = cita.costo === 0 ? "Gratis" : `₡${cita.costo}`;
+if (cita) {
+    document.getElementById("terapeuta").textContent = cita.nombreTerapeuta || "Sin nombre";
+    document.getElementById("fecha").textContent = cita.fecha || "Fecha no disponible";
+    document.getElementById("hora").textContent = cita.hora || "Hora no disponible";
+    
+    const costo = cita.costo || 18000; 
+    document.getElementById("costo").textContent = costo === 0 ? "Gratis" : `₡${costo}`;
+} else {
+    console.warn("No hay datos de la cita en localStorage.");
+}
 
 // Ocultar pago si es gratis
 if (cita.costo === 0) {
