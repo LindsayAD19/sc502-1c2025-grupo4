@@ -1,6 +1,11 @@
+<!-- 
+    Document   : configurarTerapeuta.html
+    Created on : 12 mar 2025
+    Author     : Sofía Campos Oviedo
+    SM-013 Página para gestionar horario y precio de consultas de terapeutas
+-->
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +16,6 @@
     <link rel="stylesheet" href="public/css/modals.css">
     <link rel="icon" href="public/img/icon.png">
 </head>
-
 <body>
 
     <div id="navbar"></div>
@@ -19,32 +23,73 @@
     <main>
         <div class="container mt-5">
             <h3>Configuración de Disponibilidad y Precios</h3>
-            <p>A continuación puedes gestionar tu horario de atención y el precio de consulta:</p>
+            <p>A continuación puedes gestionar tu especialidad, precio y horario de atención:</p>
 
-            <div class="mb-3">
-                <label for="horarioDisponible" class="form-label">Días y Horarios Disponibles</label>
-                <textarea class="form-control" id="horarioDisponible" rows="4"
-                    placeholder="Escribe los días y horarios en los que estás disponible (por ejemplo: Lunes 9:00 AM - 1:00 PM, Miércoles 2:00 PM - 6:00 PM)"></textarea>
+            <!-- Selección de Terapia y Precio -->
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <label for="selectTerapia" class="form-label">Especialidad/Terapia</label>
+                    <select id="selectTerapia" class="form-select">
+                        <option value="">-- Seleccionar Terapia --</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="precioConsulta" class="form-label">Precio de Consulta (en colones)</label>
+                    <input type="number" class="form-control" id="precioConsulta" placeholder="Ej: 25000">
+                </div>
             </div>
 
-            <div class="mb-3">
-                <label for="precioConsulta" class="form-label">Precio de Consulta</label>
-                <input type="number" class="form-control" id="precioConsulta" placeholder="Precio en colones">
+            <!-- Definir horarios -->
+            <div class="mb-4">
+                <label class="form-label">Días y Horarios Disponibles</label>
+                <div id="bloquesHorario"></div>
+                <button type="button" class="btn btn-outline-primary mt-2" id="agregarBloqueBtn">
+                    <i class="bi bi-plus-circle"></i> Agregar Otro
+                </button>
             </div>
 
-            <button class="btn btn-success" onclick="guardarConfiguracion()">Guardar Configuración</button>
+            <button class="btn btn-success" id="guardarBtn">Guardar Configuración</button>
         </div>
     </main>
 
-    <div id="footer"></div>
+    <!-- Template para los bloques de horario -->
+    <template id="templateBloque">
+        <div class="row align-items-end g-2 mb-2 bloque-horario">
+            <div class="col-md-3">
+                <label class="form-label">Día</label>
+                <select class="form-select dia">
+                    <option>Lunes</option>
+                    <option>Martes</option>
+                    <option>Miércoles</option>
+                    <option>Jueves</option>
+                    <option>Viernes</option>
+                    <option>Sábado</option>
+                    <option>Domingo</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Hora Inicio</label>
+                <input type="time" class="form-control hora-inicio">
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Hora Fin</label>
+                <input type="time" class="form-control hora-fin">
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-danger btn-eliminar-bloque">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </div>
+        </div>
+    </template>
 
+    <div id="footer"></div>
     <div id="modals"></div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="public/js/configurarTerapeuta.js"></script>
     <script src="public/js/layout.js"></script>
     <script src="public/js/modals.js"></script>
-    <script src="public/js/tipoUsuario.js"></script>
 </body>
-
 </html>
