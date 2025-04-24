@@ -20,7 +20,6 @@ $(document).ready(function () {
             },
             success: function (response) {
                 try {
-                    //const res = JSON.parse(response); 
                     const res = response;
                     if (res.success) {
                         $('#resultado').html('<p class="success">✅ ' + res.mensaje + '</p>');
