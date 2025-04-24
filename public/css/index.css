@@ -15,6 +15,13 @@ main {
     box-shadow: 6px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+.navbar-avatar {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
 .hero-container {
     position: relative;
     overflow: hidden;

@@ -4,8 +4,6 @@
     Author     : Horacio Porras Marin
     SM-001 Barra de navegación de HealthyMind
 -->
-<!DOCTYPE html>
-<html>
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
     <div class="container">
         <a class="navbar-brand" href="index.html">HealthyMind</a>
@@ -31,22 +29,24 @@
 
                 <!-- Botón Iniciar Sesión (solo si no ha iniciado sesión) -->
                 <li id="BtnSignIn" class="nav-item">
-                    <a class="nav-link" role="button" tabindex="0" id="linkSignIn"><strong>Iniciar
-                            Sesión</strong></a>
+                    <a class="nav-link" role="button" tabindex="0" id="linkSignIn">
+                        <strong>Iniciar Sesión</strong>
+                    </a>
                 </li>
 
-                <!-- Usuario logueado (solo imagen + dropdown para perfil/cerrar sesión) -->
+                <!-- Usuario logueado (imagen fija + dropdown para perfil y cerrar sesión) -->
                 <li class="nav-item dropdown" id="userDropdown" style="display: none;">
                     <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button"
-                        data-bs-toggle="dropdown">
-                        <img id="imgPerfil" src="public/img/default.png" alt="Perfil" class="rounded-circle" width="40"
-                            height="40">
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        <img id="imgPerfil"
+                             alt="Foto de perfil"
+                             class="rounded-circle navbar-avatar me-2"
+                             style="width: 40px; height: 40px; object-fit: cover;"
+                             loading="lazy">
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li><a class="dropdown-item" href="perfilUsuario.html">Mi Perfil</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
+                        <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="#" id="btnSignOut">Cerrar Sesión</a></li>
                     </ul>
                 </li>
@@ -54,4 +54,3 @@
         </div>
     </div>
 </nav>
-</html>

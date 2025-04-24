@@ -3,7 +3,7 @@ $(document).ready(function () {
     const idTerapeuta = params.get("id");
 
     if (idTerapeuta) {
-        // Agregar terapeuta temporalmente mientras se carga por AJAX
+        //Agrega un terapeuta temporalmente mientras se carga por AJAX
         $('#terapeuta').html(`
             <option value="${idTerapeuta}" selected>Terapeuta #${idTerapeuta}</option>
         `);
@@ -11,7 +11,7 @@ $(document).ready(function () {
         $('#terapeuta').html(`<option disabled selected>Error al cargar terapeuta</option>`);
     }
 
-    // Cargar terapeutas desde PHP (esto reemplazará el anterior select si es exitoso)
+    //Carga los terapeutas desde PHP (esto reemplazará el anterior select si es exitoso)
     $.ajax({
         url: 'app/controllers/gestionCitas.php',
         type: 'GET',
@@ -29,7 +29,7 @@ $(document).ready(function () {
         }
     });
 
-    // Cargar citas programadas
+    //Carga las citas programadas
     $.ajax({
         url: 'app/controllers/gestionCitas.php?action=listCitas',
         type: 'GET',
@@ -52,7 +52,7 @@ $(document).ready(function () {
         }
     });
 
-    // Captura y redirección al agendar
+    //Captura y redirecciona al agendar
     $('#citaForm').submit(function (e) {
         e.preventDefault();
 

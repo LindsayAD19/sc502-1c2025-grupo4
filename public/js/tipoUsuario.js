@@ -1,36 +1,37 @@
 document.addEventListener("DOMContentLoaded", () => {
-    //Espera a que exista el elemento del navbar
-    const esperarNavbar = setInterval(() => {
-        const navbarCargado = document.getElementById("BtnSignIn") || document.getElementById("userDropdown");
-        if (navbarCargado) {
-            clearInterval(esperarNavbar);
+    $.ajax({
+        url: "app/controllers/getSession.php",
+        method: "GET",
+        dataType: "json",
+        success: function (res) {
+            console.log("🧠 Datos de sesión:", res); // DEBUG
 
-            //Verificación de sesión
-            $.ajax({
-                url: "app/controllers/getSession.php",
-                method: "GET",
-                dataType: "json",
-                success: function (res) {
-                    if (res.loggedIn) {
-                        $('#BtnSignIn').hide();
-                        $('#userDropdown').show();
-                        $('#imgPerfil').attr("src", "public/img/" + res.foto_perfil);
+            if (res.loggedIn) {
+                $('#BtnSignIn').hide();
+                $('#userDropdown').show();
 
-                        if (res.rol === 'admin') $('#adminTab').show();
-                        if (res.rol === 'terapeuta') $('#terapeutaTab').show();
-                    } else {
-                        $('#BtnSignIn').show();
-                        $('#userDropdown').hide();
-                    }
-                }
-            });
+                const basePath = window.location.origin + "/sc502-3c2025-grupo4/";
+                const safeFileName = encodeURIComponent(res.foto_perfil || "default.png");
 
-            //Cerrar sesión
-            $(document).on("click", "#btnSignOut", function () {
-                $.get("app/controllers/SignOut.php", function () {
-                    location.reload();
-                });
-            });
+                const rutaImg = res.foto_perfil === "default.png"
+                    ? "public/img/default.png"
+                    : "public/img/" + encodeURIComponent(res.foto_perfil) + "?" + new Date().getTime();
+
+                $("#imgPerfil").attr("src", rutaImg);
+                $("#imgPerfil").attr("title", res.nombre || "Usuario");
+
+                if (res.rol === 'admin') $('#adminTab').show();
+                if (res.rol === 'terapeuta') $('#terapeutaTab').show();
+            }
+        },
+        error: function () {
+            console.error("Error al obtener sesión del usuario.");
         }
-    }, 100); //Revisa cada 100ms hasta que el navbar esté cargado
+    });
+
+    $(document).on("click", "#btnSignOut", function () {
+        $.get("app/controllers/SignOut.php", function () {
+            location.reload();
+        });
+    });
 });
