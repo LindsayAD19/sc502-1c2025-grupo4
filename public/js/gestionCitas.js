@@ -37,6 +37,7 @@ $(document).ready(function () {
         const datosCita = {
             fecha: $('#fecha').val(),
             hora: $('#hora').val(),
+            idTerapeuta: $('#terapeuta').val(),               // nuevo
             nombreTerapeuta: $('#terapeuta option:selected').text(),
             precio: $('#precio').val()
         };
