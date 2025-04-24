@@ -1,71 +1,114 @@
-<?php
-session_start();
-include(__DIR__ . '/../../config/database.php');
+$(document).ready(function () {
+    const params = new URLSearchParams(window.location.search);
+    const idTerapeuta = params.get("id");
 
-$action = $_GET['action'] ?? null;
-
-// Obtener listado de citas del paciente logueado
-if ($action === 'listCitas' && isset($_SESSION['usuario_id'])) {
-    $idPaciente = $_SESSION['usuario_id'];
-
-    $sql = "SELECT 
-                c.FECHA, 
-                c.HORA, 
-                u.nombre AS nombre_terapeuta,
-                u.apellidos AS apellidos_terapeuta
-            FROM cita c
-            JOIN usuarios_tb u ON c.ID_TERAPEUTA = u.id
-            WHERE c.ID_PACIENTE = ?
-            ORDER BY c.FECHA, c.HORA";
-
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $idPaciente);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    $citas = [];
-    while ($row = $result->fetch_assoc()) {
-        $citas[] = [
-            'fecha' => $row['FECHA'],
-            'hora' => $row['HORA'],
-            'terapeuta' => $row['nombre_terapeuta'] . ' ' . $row['apellidos_terapeuta']
-        ];
-    }
-
-    echo json_encode($citas);
-    exit;
-}
-
-// Obtener precio del terapeuta por ID
-if (isset($_GET['id'])) {
-    $id = intval($_GET['id']);
-    $stmt = $conn->prepare("SELECT precio FROM terapeuta_terapia WHERE id_terapeuta = ?");
-    $stmt->bind_param("i", $id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($row = $result->fetch_assoc()) {
-        error_log("Precio encontrado: " . $row['precio']);
-        echo json_encode(['precio' => $row['precio']]);
+    if (idTerapeuta) {
+        // Agregar terapeuta temporalmente mientras se carga por AJAX
+        $('#terapeuta').html(`
+            <option value="${idTerapeuta}" selected>Terapeuta #${idTerapeuta}</option>
+        `);
     } else {
-        echo json_encode(['precio' => 'No disponible']);
+        $('#terapeuta').html(`<option disabled selected>Error al cargar terapeuta</option>`);
     }
-    exit;
-}
 
-// Obtener listado de terapeutas
-$sql = "SELECT id, nombre FROM usuarios_tb WHERE tipo = 'terapeuta'"; 
-$result = $conn->query($sql);
+    // Cargar terapeutas desde PHP (esto reemplazará el anterior select si es exitoso)
+    $.ajax({
+        url: 'app/controllers/gestionCitas.php',
+        type: 'GET',
+        success: function (response) {
+            const select = $('#terapeuta');
+            select.empty();
+            select.append('<option disabled selected>Seleccione un terapeuta</option>');
+            response.forEach(function (t) {
+                const selected = t.id == idTerapeuta ? 'selected' : '';
+                select.append(`<option value="${t.id}" ${selected}>${t.nombre}</option>`);
+            });
+        },
+        error: function () {
+            console.error('Error al cargar los terapeutas');
+        }
+    });
 
-$terapeutas = [];
+    // Cargar citas programadas
+    $.ajax({
+        url: 'app/controllers/gestionCitas.php?action=listCitas',
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            const lista = $('#listaCitas');
+            lista.empty();
+            if (Array.isArray(data) && data.length > 0) {
+                data.forEach(cita => {
+                    lista.append(`<li class="list-group-item">
+                        <strong>${cita.fecha}</strong> a las <strong>${cita.hora}</strong> con <strong>${cita.terapeuta}</strong>
+                    </li>`);
+                });
+            } else {
+                lista.append('<li class="list-group-item">No tienes citas programadas.</li>');
+            }
+        },
+        error: function () {
+            $('#listaCitas').append('<li class="list-group-item">Error al cargar citas programadas.</li>');
+        }
+    });
 
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $terapeutas[] = $row;
+    // Captura y redirección al agendar
+    $('#citaForm').submit(function (e) {
+        e.preventDefault();
+
+        const datosCita = {
+            fecha: $('#fecha').val(),
+            hora: $('#hora').val(),
+            idTerapeuta: $('#terapeuta').val(),
+            nombreTerapeuta: $('#terapeuta option:selected').text(),
+            precio: $('#precio').val()
+        };
+
+        localStorage.setItem('datosCita', JSON.stringify(datosCita));
+
+        setTimeout(() => {
+            window.location.href = "pagoCita.html";
+        }, 2000);
+    });
+
+    if (idTerapeuta) {
+        $('#terapeuta').val(idTerapeuta);
+        obtenerPrecio(idTerapeuta);
     }
-}
 
-$conn->close();
+    $('#terapeuta').on('change', function () {
+        const idSeleccionado = $(this).val();
+        if (idSeleccionado) {
+            obtenerPrecio(idSeleccionado);
+        }
+    });
 
-header('Content-Type: application/json');
-echo json_encode($terapeutas);
+    function obtenerPrecio(id) {
+        $.ajax({
+            url: 'app/controllers/gestionCitas.php',
+            method: 'GET',
+            data: { id: id },
+            success: function (response) {
+                if (typeof response === "string") {
+                    try {
+                        response = JSON.parse(response);
+                    } catch (e) {
+                        console.error("Error al analizar la respuesta JSON", e);
+                        response = {};
+                    }
+                }
+                if (response && response.precio && response.precio !== '') {
+                    console.log("Precio asignado:", response.precio);
+                    $('#precio').val(response.precio);
+                } else {
+                    console.error('Precio no encontrado o no disponible');
+                    $('#precio').val('');
+                }
+            },
+            error: function () {
+                console.error('Error al obtener el precio del terapeuta');
+                $('#precio').val('');
+            }
+        });
+    }
+});
