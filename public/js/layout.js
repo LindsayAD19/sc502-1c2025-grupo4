@@ -1,15 +1,15 @@
 document.addEventListener("DOMContentLoaded", () => {
-    //Carga navbar y luego ejecuta tipoUsuario.js
+    //Carga el navbar y luego ejecuta tipoUsuario.js
     includeHTML("navbar", "app/views/navbar.html", () => {
         setTimeout(() => {
             loadScript("public/js/tipoUsuario.js");
         }, 200);
     });
 
-    //Carga footer
+    //Carga el footer
     includeHTML("footer", "app/views/footer.html");
 
-    //Carga modals y luego inicializa eventos, tambien ejecuta signUp.js
+    //Carga los modals y luego inicializa eventos, tambien ejecuta signUp.js
     includeHTML("modals", "app/views/modals.html", () => {
         loadModalEvents();
         loadScript("public/js/signUp.js");

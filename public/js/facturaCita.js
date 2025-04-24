@@ -25,7 +25,7 @@ $(document).ready(function () {
             $('#fechaCitaFactura').text(f.FECHA_CITA);
             $('#horaCitaFactura').text(f.HORA_CITA);
 
-            // Actualizar tabla de detalles
+            //Actualiza la tabla de detalles
             const precio = parseFloat(f.TOTAL).toFixed(2);
             const fila = `
                 <tr>

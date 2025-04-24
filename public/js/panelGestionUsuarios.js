@@ -2,7 +2,7 @@ $(function () {
     const controller = 'app/controllers/gestionUsuarios.php';
     let currentAction = 'agregar', currentTipo = '';
 
-    //Cargar tablas
+    //Carga las tablas
     function refrescarTablas() {
         ['terapeuta', 'paciente', 'admin'].forEach(tipo => {
             $.post(controller, { action: 'listar', tipo: tipo }, null, 'json')

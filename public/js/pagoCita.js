@@ -3,17 +3,17 @@ function togglePaymentFields() {
   }
   
   function confirmarPago() {
-    //Llamar datos de la cita
+    //Llama datos de la cita
     const cita = JSON.parse(localStorage.getItem('datosCita'));
     if (!cita) {
       alert('No hay datos de cita');
       return;
     }
   
-    //Obtener método de pago
+    //Obtiene el método de pago
     const metodo = $('#metodoPago').val();
   
-    //Enviar POST
+    //Envia el POST
     $.post('app/controllers/registroCitaPago.php', {
       fecha: cita.fecha,
       hora: cita.hora,
@@ -35,7 +35,7 @@ function togglePaymentFields() {
     });
   }
   
-  // Al cargar la página, rellenar el resumen
+  //Al cargar la página, rellena el resumen
   $(function() {
     const cita = JSON.parse(localStorage.getItem('datosCita')) || {};
     $('#terapeuta').text(cita.nombreTerapeuta || '');

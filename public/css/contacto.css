@@ -1,8 +1,3 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-}
-
 .contact-form-container {
     width: 100%;
     max-width: 600px;
@@ -21,50 +16,10 @@ input, select, textarea, button {
     border-radius: 4px;
 }
 
-button {
-    background-color: #007BFF;
-    color: #fff;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #0056b3;
-}
-
 .success {
     color: green;
 }
 
 .error {
     color: red;
-}
-
-body {
-    background-color: white;
-}
-
-.navbar {
-    box-shadow: 6px 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.hero {
-    background: url('https://fcefyn.unc.edu.ar/media/images/Guarani_fuera_de_servicio_1.e903d91b.fill-1600x390-c100.png') center/cover no-repeat;
-    height: 400px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    text-align: center;
-}
-
-.hero h1 {
-    font-size: 3rem;
-    background: rgba(0, 0, 0, 0.5);
-    padding: 10px;
-    border-radius: 10px;
-}
-
-footer {
-    color: white;
-    background-color: #1e8163;
 }

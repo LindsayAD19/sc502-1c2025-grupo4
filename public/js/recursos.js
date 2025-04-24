@@ -1,5 +1,3 @@
-
-
 $(document).ready(function () {
     $.ajax({
         url: 'app/controllers/getRecursos.php',
@@ -7,7 +5,7 @@ $(document).ready(function () {
         dataType: 'json',
         success: function (recursos) {
             const contenedor = $('.container.mt-2.mb-5 .row');
-            contenedor.empty(); // Limpiar contenido actual
+            contenedor.empty(); //Limpia el contenido actual
 
             recursos.forEach(recurso => {
                 const card = `

@@ -3,7 +3,7 @@ $(function() {
     const bloquesCont = $('#bloquesHorario');
     const template = $('#templateBloque')[0].content;
 
-    // Cargar lista de terapias
+    //Carga la lista de terapias
     function cargarTerapias() {
         return $.getJSON(controller, { action: 'listTerapias' })
             .done(data => {
@@ -12,7 +12,7 @@ $(function() {
             });
     }
 
-    // Agregar bloque horario en DOM
+    //Agrega el bloque horario en DOM
     function agregarBloque(b) {
         const clone = document.importNode(template, true);
         const row = $(clone).find('.bloque-horario');
@@ -25,7 +25,7 @@ $(function() {
         bloquesCont.append(row);
     }
 
-    // Cargar configuración existente
+    //Carga la configuración existente
     function cargarConfig() {
         $.getJSON(controller, { action: 'getConfig' })
             .done(data => {
@@ -38,7 +38,7 @@ $(function() {
             });
     }
 
-    // Guardar configuración
+    //Guarda la configuración
     $('#guardarBtn').click(function() {
         const payload = {
             action: 'saveConfig',
@@ -64,9 +64,9 @@ $(function() {
         }).fail(() => alert('Error de comunicación'));
     });
 
-    // Inicialización
+    //Inicialización
     $.when(cargarTerapias()).then(cargarConfig);
 
-    // Evento para agregar bloque vacío
+    //Evento para agregar bloque vacío
     $('#agregarBloqueBtn').click(() => agregarBloque());
 });

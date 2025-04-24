@@ -1,4 +1,4 @@
-    // Vista previa de la imagen seleccionada
+    //Vista previa de la imagen seleccionada
     document.getElementById("upload-img").addEventListener("change", function (event) {
         const file = event.target.files[0];
         if (file) {
